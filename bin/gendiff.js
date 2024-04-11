@@ -10,8 +10,7 @@ program
   .argument('<filepath1>')
   .argument('<filepath2>')
   .action((filepath1, filepath2) => {
-    console.log(parseFiles(filepath1));
-    console.log(parseFiles(filepath2));
+    console.log(parseFiles(filepath1, filepath2));
   });
 
 // program.command('genDiff')
