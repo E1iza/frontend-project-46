@@ -4,7 +4,7 @@ import parseFiles from '../src/parseFiles.js';
 
 program
   .name('')
-  .description('Compares two configuration files and shows a difference.')
+  .description('Compares two configuration __fixtures__ and shows a difference.')
   .version('1.0.0')
   .option('-f, --format [type]', 'output format')
   .argument('<filepath1>')

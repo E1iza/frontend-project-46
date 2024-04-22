@@ -37,4 +37,4 @@ const parseFiles = (filesPath1, filesPath2) => {
 
 export default parseFiles;
 
-// console.log(parseFiles('../files/file1.json', '../files/file2.json'));
+// console.log(parseFiles('../__fixtures__/file1.json', '../__fixtures__/file2.json'));
