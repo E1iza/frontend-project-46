@@ -24,8 +24,8 @@ test('parsers YAML', () => {
   expect(parsers(pathFile1, pathFile2)).toEqual(expectedResult);
 });
 
-// test('unsupported format', () => {
-//   const pathFile1 = getFixturePath('file.txt');
-//   const pathFile2 = getFixturePath('file2.yml');
-//   expect(parsers(pathFile1, pathFile2)).toThrow('Данные форматы файлов не поддерживаются');
-// });
+test('unsupported format', () => {
+  const pathFile1 = getFixturePath('file.txt');
+  const pathFile2 = getFixturePath('file2.yml');
+  expect(parsers(pathFile1, pathFile2)).toThrow('Данные форматы файлов не поддерживаются');
+});
