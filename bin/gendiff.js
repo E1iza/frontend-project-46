@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import parseFiles from '../src/parseFiles.js';
+import parsers from '../src/parsers.js';
 
 program
   .name('')
@@ -10,7 +10,7 @@ program
   .argument('<filepath1>')
   .argument('<filepath2>')
   .action((filepath1, filepath2) => {
-    console.log(parseFiles(filepath1, filepath2));
+    console.log(parsers(filepath1, filepath2));
   });
 
 // program.command('genDiff')
