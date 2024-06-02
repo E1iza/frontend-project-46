@@ -4,6 +4,7 @@ import fs from 'fs';
 import yaml from 'js-yaml';
 import { expect, test } from '@jest/globals';
 import parsers from '../src/parsers.js';
+import stylish from '../src/stylish.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,7 +19,8 @@ test('parsers JSON', () => {
   const data2 = JSON.parse(file2);
   const pathExpectedFile = getFixturePath('expected');
   const expectedResult = fs.readFileSync(pathExpectedFile, 'utf8');
-  expect(parsers(data1, data2)).toEqual(expectedResult);
+  const dataParse = parsers(data1, data2);
+  expect(stylish(dataParse)).toEqual(expectedResult);
 });
 
 test('parsers YAML', () => {
@@ -30,7 +32,8 @@ test('parsers YAML', () => {
   const data2 = yaml.load(file2);
   const pathExpectedFile = getFixturePath('expected');
   const expectedResult = fs.readFileSync(pathExpectedFile, 'utf8');
-  expect(parsers(data1, data2)).toEqual(expectedResult);
+  const dataParse = parsers(data1, data2);
+  expect(stylish(dataParse)).toEqual(expectedResult);
 });
 
 test('unsupported format', () => {

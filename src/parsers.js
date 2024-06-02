@@ -4,20 +4,20 @@ const parsers = (dataFirst, dataSecond) => {
   const result = _.reduce(dataFirst, (acc, value, key) => {
     if (value instanceof Object) {
       if (dataSecond[key]) {
-        acc.push([' ', `${key}: ${parsers(value, dataSecond[key])}`]);
-      } else acc.push(['-', `${key}: ${value}`]);
+        acc.push([' ', { [key]: parsers(value, dataSecond[key]) }]);
+      } else acc.push(['-', { [key]: value }]);
     }
     if (dataFirst[key] === dataSecond[key]) {
-      acc.push([' ', `${key}: ${value}`]);
+      acc.push([' ', { [key]: value }]);
     } else if (dataSecond[key]) {
-      acc.push(['-', `${key}: ${value}`]);
-      acc.push(['+', `${key}: ${dataSecond[key]}`]);
-    } else acc.push(['-', `${key}: ${value}`]);
+      acc.push(['-', { [key]: value }]);
+      acc.push(['+', { [key]: dataSecond[key] }]);
+    } else acc.push(['-', { [key]: value }]);
     return acc;
   }, []);
   _.map(dataSecond, (value, key) => {
     if (!dataFirst[key]) {
-      result.push(['+', `${key}: ${value}`]);
+      result.push(['+', { [key]: value }]);
     }
   });
   return result;
