@@ -1,16 +1,15 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import * as path from 'path';
 import fs from 'fs';
+import path from 'path';
 import yaml from 'js-yaml';
 import parsers from '../src/parsers.js';
-import stylish from '../src/stylish.js';
 
 program
   .name('')
   .description('Compares two configuration __fixtures__ and shows a difference.')
   .version('1.0.0')
-  .option('-f, --format [type]', 'output format', 'stylish')
+  .option('-f, --format [type]', 'output format')
   .argument('<filepath1>')
   .argument('<filepath2>')
   .action((filepath1, filepath2) => {
@@ -27,13 +26,19 @@ program
       data1 = yaml.load(file1);
       data2 = yaml.load(file2);
     } else {
-      throw new Error('Формат файла не поддерживается');
+      throw new Error('Данные форматы файлов не поддерживаются');
     }
-    const diff = parsers(data1, data2);
-    const options = program.opts();
-    if (options.format === 'stylish') {
-      console.log(stylish(diff));
-    }
+    console.log(parsers(data1, data2));
   });
+
+// program.command('genDiff')
+//   .description('Команда выводит разницу между файлами')
+//   .argument('<filepath1>', 'первый файл')
+//   .argument('<filepath2>', 'второй файл')
+//   .option('-h, --help')
+//   .option('-V, --version')
+//   .action((filepath1, filepath2) => {
+//     console.log(genDiff(filepath1, filepath2));
+//   });
 
 program.parse();
