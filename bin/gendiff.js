@@ -33,14 +33,4 @@ program
     console.log(stylish(result));
   });
 
-// program.command('genDiff')
-//   .description('Команда выводит разницу между файлами')
-//   .argument('<filepath1>', 'первый файл')
-//   .argument('<filepath2>', 'второй файл')
-//   .option('-h, --help')
-//   .option('-V, --version')
-//   .action((filepath1, filepath2) => {
-//     console.log(genDiff(filepath1, filepath2));
-//   });
-
 program.parse();

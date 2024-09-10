@@ -16,7 +16,7 @@ const parsers = (data1, data2) => {
       acc.push(['  ', { [key]: parsers(data1[key], data2[key]) }]);
     } else if (data1[key] === data2[key]) {
       acc.push(['  ', { [key]: data1[key] }]);
-    } else if (data2[key]) {
+    } else if (Object.hasOwn(data2, key)) {
       acc.push(['- ', { [key]: data1[key] }]);
       acc.push(['+ ', { [key]: data2[key] }]);
     } else acc.push(['- ', { [key]: data1[key] }]);
