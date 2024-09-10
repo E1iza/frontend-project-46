@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 import parsers from '../src/parsers.js';
+import stylish from '../src/stylish.js';
 
 program
   .name('')
@@ -28,7 +29,8 @@ program
     } else {
       throw new Error('Данные форматы файлов не поддерживаются');
     }
-    console.log(parsers(data1, data2));
+    const result = parsers(data1, data2);
+    console.log(stylish(result));
   });
 
 // program.command('genDiff')
