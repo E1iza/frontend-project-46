@@ -5,13 +5,7 @@ import yaml from 'js-yaml';
 const parsers = (filePath) => {
   const file = fs.readFileSync(filePath, 'utf8');
   const extension = path.extname(filePath);
-  let data = null;
-  if (extension === '.json') {
-    data = JSON.parse(file);
-  } else if ((extension === '.yaml' || extension === '.yml')) {
-    data = yaml.load(file);
-  }
-  return data;
+  return (extension === '.json') ? JSON.parse(file) : yaml.load(file);
 };
 
 export default parsers;
