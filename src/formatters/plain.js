@@ -14,19 +14,15 @@ const plain = (data, parent = '') => {
     const value = item[key];
     switch (item[diff]) {
       case 'parent':
-        acc[acc.length] = plain(value, `${parent}${key}.`);
-        break;
+        return [...acc, plain(value, `${parent}${key}.`)];
       case 'unchanged':
         break;
       case 'updated':
-        acc[acc.length] = `Property '${parent}${key}' was updated. From ${stylizationValue(value.valueOld)} to ${stylizationValue(value.valueNew)}`;
-        break;
+        return [...acc, `Property '${parent}${key}' was updated. From ${stylizationValue(value.valueOld)} to ${stylizationValue(value.valueNew)}`];
       case 'removed':
-        acc[acc.length] = `Property '${parent}${key}' was removed`;
-        break;
+        return [...acc, `Property '${parent}${key}' was removed`];
       case 'added':
-        acc[acc.length] = `Property '${parent}${key}' was added with value: ${stylizationValue(value)}`;
-        break;
+        return [...acc, `Property '${parent}${key}' was added with value: ${stylizationValue(value)}`];
       default:
         return acc;
     }
