@@ -3,7 +3,7 @@ import getAST from './src/getAST.js';
 import stylish from './src/formatters/stylish.js';
 import plain from './src/formatters/plain.js';
 
-const getDiff = (filePath1, filePath2, style) => {
+const getDiff = (filePath1, filePath2, style = 'stylish') => {
   const data1 = parsers(filePath1);
   const data2 = parsers(filePath2);
   const AST = getAST(data1, data2);
@@ -14,8 +14,6 @@ const getDiff = (filePath1, filePath2, style) => {
     result = plain(AST);
   } else if (style === 'json') {
     result = JSON.stringify(AST, null, 2, '\t');
-  } else {
-    result = stylish(AST);
   }
   console.log(result);
 };
