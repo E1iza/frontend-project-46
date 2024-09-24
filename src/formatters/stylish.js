@@ -33,25 +33,25 @@ const stylish = (data, fill = ' ', level = 0, countFill = 4) => {
       const value = item[key];
       const sign = analysisDiff(item[diff]);
       if (value instanceof Array) {
-        return `${sign.padStart(offset, fill)}${key}: ${stylish(value, fill, nextLevel)}`.trimEnd();
+        return `${sign.padStart(offset, fill)}${key}: ${stylish(value, fill, nextLevel)}`;
       }
       if (value instanceof Object) {
         if (typeof sign === 'string') {
-          return `${sign.padStart(offset, fill)}${key}: ${stylish(value, fill, nextLevel)}`.trimEnd();
+          return `${sign.padStart(offset, fill)}${key}: ${stylish(value, fill, nextLevel)}`;
         }
-        const str1 = `${sign[0].padStart(offset, fill)}${key}: ${stylish(value.valueOld, fill, nextLevel)}`.trimEnd();
-        const str2 = `${sign[1].padStart(offset, fill)}${key}: ${stylish(value.valueNew, fill, nextLevel)}`.trimEnd();
+        const str1 = `${sign[0].padStart(offset, fill)}${key}: ${stylish(value.valueOld, fill, nextLevel)}`;
+        const str2 = `${sign[1].padStart(offset, fill)}${key}: ${stylish(value.valueNew, fill, nextLevel)}`;
         return `${str1}\n${str2}`;
       }
-      return `${sign.padStart(offset, fill)}${key}: ${value}`.trimEnd();
+      return `${sign.padStart(offset, fill)}${key}: ${value}`;
     });
     return `{\n${result.join('\n')}\n${''.padStart(offset - countFill, fill)}}`;
   }
   if (data instanceof Object) {
     const result = _.reduce(data, (acc, value, key) => {
       if (value instanceof Object) {
-        acc.push(`${fill.repeat(offset)}${key}: ${stylish(value, fill, nextLevel)}`.trimEnd());
-      } else acc.push(`${fill.repeat(offset)}${key}: ${value}`.trimEnd());
+        acc.push(`${fill.repeat(offset)}${key}: ${stylish(value, fill, nextLevel)}`);
+      } else acc.push(`${fill.repeat(offset)}${key}: ${value}`);
       return acc;
     }, []);
     return `{\n${result.join('\n')}\n${''.padStart(offset - countFill, fill)}}`;
