@@ -16,6 +16,7 @@ const getDiff = (filePath1, filePath2, style = 'stylish') => {
     result = JSON.stringify(AST, null, 2, '\t');
   }
   console.log(result);
+  return result;
 };
 
 export default getDiff;
