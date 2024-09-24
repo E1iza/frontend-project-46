@@ -7,14 +7,15 @@ const getDiff = (filePath1, filePath2, style) => {
   const data1 = parsers(filePath1);
   const data2 = parsers(filePath2);
   const AST = getAST(data1, data2);
-  let result = null;
+  let result;
   if (style === 'stylish') {
     result = stylish(AST);
   } else if (style === 'plain') {
     result = plain(AST);
-  }
-  if (style === 'json') {
+  } else if (style === 'json') {
     result = JSON.stringify(AST, null, 2, '\t');
+  } else {
+    result = stylish(AST);
   }
   console.log(result);
 };

@@ -23,7 +23,7 @@ test('parsers JSON stylish', () => {
 });
 
 test('parsers YAML stylish', () => {
-  const pathFile1 = getFixturePath('file1.yaml');
+  const pathFile1 = getFixturePath('file1.yml');
   const pathFile2 = getFixturePath('file2.yml');
   const data1 = parsers(pathFile1);
   const data2 = parsers(pathFile2);
@@ -45,7 +45,7 @@ test('parsers JSON plain', () => {
 });
 
 test('parsers YAML plain', () => {
-  const pathFile1 = getFixturePath('file1.yaml');
+  const pathFile1 = getFixturePath('file1.yml');
   const pathFile2 = getFixturePath('file2.yml');
   const data1 = parsers(pathFile1);
   const data2 = parsers(pathFile2);

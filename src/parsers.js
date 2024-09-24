@@ -10,8 +10,6 @@ const parsers = (filePath) => {
     data = JSON.parse(file);
   } else if ((extension === '.yaml' || extension === '.yml')) {
     data = yaml.load(file);
-  } else {
-    throw new Error('Данный формат файла не поддерживается');
   }
   return data;
 };
