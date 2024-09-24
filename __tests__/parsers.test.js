@@ -1,42 +1,56 @@
 import { fileURLToPath } from 'url';
 import * as path from 'path';
 import fs from 'fs';
-import yaml from 'js-yaml';
 import { expect, test } from '@jest/globals';
 import parsers from '../src/parsers.js';
-import stylish from '../src/stylish.js';
+import stylish from '../src/formatters/stylish.js';
+import plain from '../src/formatters/plain.js';
+import getAST from '../src/getAST.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-test('parsers JSON', () => {
+test('parsers JSON stylish', () => {
   const pathFile1 = getFixturePath('file1.json');
   const pathFile2 = getFixturePath('file2.json');
-  const file1 = fs.readFileSync(pathFile1, 'utf8');
-  const file2 = fs.readFileSync(pathFile2, 'utf8');
-  const data1 = JSON.parse(file1);
-  const data2 = JSON.parse(file2);
-  const pathExpectedFile = getFixturePath('expected');
+  const data1 = parsers(pathFile1);
+  const data2 = parsers(pathFile2);
+  const pathExpectedFile = getFixturePath('expected_stylish');
   const expectedResult = fs.readFileSync(pathExpectedFile, 'utf8');
-  const dataParse = parsers(data1, data2);
-  expect(stylish(dataParse)).toEqual(expectedResult);
+  const diff = getAST(data1, data2);
+  expect(stylish(diff)).toEqual(expectedResult);
 });
 
-test('parsers YAML', () => {
+test('parsers YAML stylish', () => {
   const pathFile1 = getFixturePath('file1.yaml');
   const pathFile2 = getFixturePath('file2.yml');
-  const file1 = fs.readFileSync(pathFile1, 'utf8');
-  const file2 = fs.readFileSync(pathFile2, 'utf8');
-  const data1 = yaml.load(file1);
-  const data2 = yaml.load(file2);
-  const pathExpectedFile = getFixturePath('expected');
+  const data1 = parsers(pathFile1);
+  const data2 = parsers(pathFile2);
+  const pathExpectedFile = getFixturePath('expected_stylish');
   const expectedResult = fs.readFileSync(pathExpectedFile, 'utf8');
-  const dataParse = parsers(data1, data2);
-  expect(stylish(dataParse)).toEqual(expectedResult);
+  const diff = getAST(data1, data2);
+  expect(stylish(diff)).toEqual(expectedResult);
 });
 
-// test('unsupported format', () => {
-//   const data = '';
-//   expect(stylish(data)).toThrowError('Тип переданных данных не является Object или Array');
-// });
+test('parsers JSON plain', () => {
+  const pathFile1 = getFixturePath('file1.json');
+  const pathFile2 = getFixturePath('file2.json');
+  const data1 = parsers(pathFile1);
+  const data2 = parsers(pathFile2);
+  const pathExpectedFile = getFixturePath('expected_plain');
+  const expectedResult = fs.readFileSync(pathExpectedFile, 'utf8');
+  const diff = getAST(data1, data2);
+  expect(plain(diff)).toEqual(expectedResult);
+});
+
+test('parsers YAML plain', () => {
+  const pathFile1 = getFixturePath('file1.yaml');
+  const pathFile2 = getFixturePath('file2.yml');
+  const data1 = parsers(pathFile1);
+  const data2 = parsers(pathFile2);
+  const pathExpectedFile = getFixturePath('expected_plain');
+  const expectedResult = fs.readFileSync(pathExpectedFile, 'utf8');
+  const diff = getAST(data1, data2);
+  expect(plain(diff)).toEqual(expectedResult);
+});
