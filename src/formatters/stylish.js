@@ -1,27 +1,21 @@
 import _ from 'lodash';
 
 const analysisDiff = (str) => {
-  let result = '';
   switch (str) {
     case 'parent':
-      result = '  ';
-      break;
+      return '  ';
     case 'unchanged':
-      result = '  ';
-      break;
+      return '  ';
     case 'updated':
-      result = ['- ', '+ '];
-      break;
+      return ['- ', '+ '];
     case 'removed':
-      result = '- ';
-      break;
+      return '- ';
     case 'added':
-      result = '+ ';
-      break;
+      return '+ ';
     default:
-      return result;
+      // return '';
   }
-  return result;
+  return str;
 };
 
 const stylish = (data, fill = ' ', level = 0, countFill = 4) => {
@@ -50,8 +44,10 @@ const stylish = (data, fill = ' ', level = 0, countFill = 4) => {
   if (data instanceof Object) {
     const result = _.reduce(data, (acc, value, key) => {
       if (value instanceof Object) {
-        acc.push(`${fill.repeat(offset)}${key}: ${stylish(value, fill, nextLevel)}`);
-      } else acc.push(`${fill.repeat(offset)}${key}: ${value}`);
+        acc[acc.length] = `${fill.repeat(offset)}${key}: ${stylish(value, fill, nextLevel)}`;
+      } else {
+        acc[acc.length] = `${fill.repeat(offset)}${key}: ${value}`;
+      }
       return acc;
     }, []);
     return `{\n${result.join('\n')}\n${''.padStart(offset - countFill, fill)}}`;
