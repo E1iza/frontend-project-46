@@ -44,11 +44,9 @@ const stylish = (data, fill = ' ', level = 0, countFill = 4) => {
   if (data instanceof Object) {
     const result = _.reduce(data, (acc, value, key) => {
       if (value instanceof Object) {
-        acc[acc.length] = `${fill.repeat(offset)}${key}: ${stylish(value, fill, nextLevel)}`;
-      } else {
-        acc[acc.length] = `${fill.repeat(offset)}${key}: ${value}`;
+        return [...acc, `${fill.repeat(offset)}${key}: ${stylish(value, fill, nextLevel)}`];
       }
-      return acc;
+      return [...acc, `${fill.repeat(offset)}${key}: ${value}`];
     }, []);
     return `{\n${result.join('\n')}\n${''.padStart(offset - countFill, fill)}}`;
   }

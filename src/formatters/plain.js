@@ -10,9 +10,9 @@ const stylizationValue = (value) => {
 
 const plain = (data, parent = '') => {
   const result = data.reduce((acc, item) => {
-    const [diff, key] = Object.keys(item);
+    const [type, key] = Object.keys(item);
     const value = item[key];
-    switch (item[diff]) {
+    switch (item[type]) {
       case 'parent':
         return [...acc, plain(value, `${parent}${key}.`)];
       case 'unchanged':
