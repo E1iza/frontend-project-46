@@ -8,7 +8,7 @@ const analysisDiff = (type) => {
     removed: '- ',
     added: '+ ',
   };
-  return mapType[type];
+  return mapType[type] ?? '';
 };
 
 const stylish = (data, fill = ' ', level = 0, countFill = 4) => {
