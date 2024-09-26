@@ -1,21 +1,14 @@
 import _ from 'lodash';
 
-const analysisDiff = (str) => {
-  switch (str) {
-    case 'parent':
-      return '  ';
-    case 'unchanged':
-      return '  ';
-    case 'updated':
-      return ['- ', '+ '];
-    case 'removed':
-      return '- ';
-    case 'added':
-      return '+ ';
-    default:
-      // return '';
-  }
-  return str;
+const analysisDiff = (type) => {
+  const mapType = {
+    parent: '  ',
+    unchanged: '  ',
+    updated: ['- ', '+ '],
+    removed: '- ',
+    added: '+ ',
+  };
+  return mapType[type];
 };
 
 const stylish = (data, fill = ' ', level = 0, countFill = 4) => {
@@ -23,19 +16,19 @@ const stylish = (data, fill = ' ', level = 0, countFill = 4) => {
   const nextLevel = level + 1;
   if (data instanceof Array) {
     const result = data.map((item) => {
-      const [diff, key] = Object.keys(item);
+      const [type, key] = Object.keys(item);
       const value = item[key];
-      const sign = analysisDiff(item[diff]);
+      const sign = analysisDiff(item[type]);
       if (value instanceof Array) {
         return `${sign.padStart(offset, fill)}${key}: ${stylish(value, fill, nextLevel)}`;
       }
       if (value instanceof Object) {
-        if (typeof sign === 'string') {
-          return `${sign.padStart(offset, fill)}${key}: ${stylish(value, fill, nextLevel)}`;
+        if (sign instanceof Array) {
+          const str1 = `${sign[0].padStart(offset, fill)}${key}: ${stylish(value.valueOld, fill, nextLevel)}`;
+          const str2 = `${sign[1].padStart(offset, fill)}${key}: ${stylish(value.valueNew, fill, nextLevel)}`;
+          return `${str1}\n${str2}`;
         }
-        const str1 = `${sign[0].padStart(offset, fill)}${key}: ${stylish(value.valueOld, fill, nextLevel)}`;
-        const str2 = `${sign[1].padStart(offset, fill)}${key}: ${stylish(value.valueNew, fill, nextLevel)}`;
-        return `${str1}\n${str2}`;
+        return `${sign.padStart(offset, fill)}${key}: ${stylish(value, fill, nextLevel)}`;
       }
       return `${sign.padStart(offset, fill)}${key}: ${value}`;
     });
