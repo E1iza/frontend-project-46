@@ -1,4 +1,6 @@
 import _ from 'lodash';
+// import fs from "fs";
+// import getDiff from "../index.js";
 
 const analysisDiff = (type) => {
   const mapType = {
@@ -47,3 +49,9 @@ const stylish = (data, fill = ' ', level = 0, countFill = 4) => {
 };
 
 export default stylish;
+
+// const pathFile1 = '../../__fixtures__/file3.yaml';
+// const pathFile2 = '../../__fixtures__/file4.yaml';
+// const data = getDiff(pathFile1, pathFile2);
+// console.log(data);
+// console.log(stylish(data));
