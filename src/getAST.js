@@ -4,7 +4,7 @@ const getAst = (data1, data2) => {
   const keys = _.union(Object.keys(data1), Object.keys(data2));
   const sortKeys = _.sortBy(keys);
   return _.reduce(sortKeys, (acc, key) => {
-    if ((data1[key] instanceof Object) && (data2[key] instanceof Object)) {
+    if (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key])) {
       return [...acc, { typeDiff: 'parent', [key]: getAst(data1[key], data2[key]) }];
     }
     if (data1[key] === data2[key]) {

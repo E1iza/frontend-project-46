@@ -5,7 +5,7 @@ const stylizationValue = (value) => {
   if (typeof value === 'string') {
     return `'${value}'`;
   }
-  return value;
+  return `${value}`;
 };
 
 const plain = (data, parent = '') => {
